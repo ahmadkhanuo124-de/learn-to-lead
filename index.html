@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn to Lead Institute | Pakistan's Premier IT Academy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #10b981;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --bg-dark: #0f172a;
+            --text-dark: #1e293b;
+            --text-light: #f1f5f9;
+            --text-muted: #64748b;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.16);
+            --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ===== PRELOADER ===== */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.8s ease 2.2s forwards;
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        .preloader-content {
+            text-align: center;
+            color: white;
+        }
+
+        .preloader-logo {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            animation: slideDown 0.8s ease;
+        }
+
+        .loader-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideLeft {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-md);
+            animation: slideDown 0.6s ease;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(15, 23, 42, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .navbar-link {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition-base);
+        }
+
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-link:hover::after,
+        .navbar-link.active::after {
+            width: 100%;
+        }
+
+        .navbar-btn {
+            padding: 0.5rem 1.5rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .navbar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: inherit;
+            transition: var(--transition-base);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(20deg);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            padding: 150px 1.5rem 100px;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: slideLeft 0.8s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            animation: slideLeft 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: slideLeft 0.8s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .hero-video {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            animation: slideRight 0.8s ease;
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .video-placeholder i {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== BENEFITS SECTION ===== */
+        .benefits {
+            padding: 3rem 1.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            animation: slideUp 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body.dark-mode .benefit-card {
+            background: #0a0e27;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .benefit-card i {
+            font-size: 3.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ===== COURSES SECTION ===== */
+        .courses {
+            padding: 3rem 1.5rem;
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .courses {
+            background: #0a0e27;
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            animation: slideUp 0.8s ease;
+            position: relative;
+        }
+
+        body.dark-mode .course-card {
+            background: #0a0e27;
+        }
+
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .course-img {
+            height: 220px;
+            background: #ddd;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+
+        .course-card:hover .course-img img {
+            transform: scale(1.1);
+        }
+
+        .course-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .course-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .course-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .course-info p {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        /* ===== TEACHERS SECTION ===== */
+        .teachers {
+            padding: 3rem 1.5rem;
+        }
+
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .teacher-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            animation: slideUp 0.8s ease;
+        }
+
+        body.dark-mode .teacher-card {
+            background: #0a0e27;
+        }
+
+        .teacher-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .teacher-img {
+            height: 280px;
+            background: #ddd;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .teacher-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+
+        .teacher-card:hover .teacher-img img {
+            transform: scale(1.08);
+        }
+
+        .teacher-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .teacher-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .teacher-role {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== ALUMNI SECTION ===== */
+        .alumni {
+            padding: 3rem 1.5rem;
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .alumni {
+            background: #0a0e27;
+        }
+
+        .alumni-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .alumni-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition-base);
+            animation: slideUp 0.8s ease;
+            position: relative;
+        }
+
+        body.dark-mode .alumni-card {
+            background: #0a0e27;
+        }
+
+        .alumni-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .alumni-img {
+            height: 250px;
+            background: #ddd;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .alumni-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-base);
+        }
+
+        .alumni-card:hover .alumni-img img {
+            transform: scale(1.1);
+        }
+
+        .alumni-rank {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            z-index: 2;
+        }
+
+        .alumni-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .alumni-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        .about {
+            padding: 3rem 1.5rem;
+        }
+
+        .about-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.8rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-base);
+        }
+
+        .about-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact {
+            padding: 3rem 1.5rem;
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .contact {
+            background: #0a0e27;
+        }
+
+        .contact-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            background: white;
+            color: var(--text-dark);
+            font-family: inherit;
+            transition: var(--transition-base);
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group textarea {
+            background: #0a0e27;
+            color: var(--text-light);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-info p {
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        body.dark-mode .contact-info p {
+            background: #0a0e27;
+        }
+
+        .contact-info i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* ===== LOGIN MODAL ===== */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .login-modal.active {
+            display: flex;
+        }
+
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        body.dark-mode .login-box {
+            background: #0a0e27;
+        }
+
+        .close-login {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+            transition: var(--transition-base);
+        }
+
+        .close-login:hover {
+            color: var(--primary);
+        }
+
+        .login-header h2 {
+            font-size: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .login-header p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        body.dark-mode .login-header p {
+            color: #aaa;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .login-form input {
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: var(--transition-base);
+        }
+
+        body.dark-mode .login-form input {
+            background: #1a1a2e;
+            color: white;
+            border-color: #333;
+        }
+
+        .login-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-form button {
+            padding: 0.75rem;
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-base);
+        }
+
+        .login-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* ===== FLOATING WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            z-index: 999;
+            transition: var(--transition-base);
+            animation: float 3s ease-in-out infinite;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.6);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .hero-wrapper,
+            .about-wrapper,
+            .contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar-nav {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stats {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <!-- Pre-loader -->
+    <div class="preloader">
+        <div class="preloader-content">
+            <div class="preloader-logo">Learn to Lead</div>
+            <div class="loader-spinner"></div>
+            <div style="color: white; margin-top: 1rem;">Loading Your Future...</div>
+        </div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-wrapper">
+                <div class="navbar-logo">Learn to Lead</div>
+                <ul class="navbar-nav">
+                    <li><a href="#home" class="navbar-link active">Home</a></li>
+                    <li><a href="#courses" class="navbar-link">Courses</a></li>
+                    <li><a href="#teachers" class="navbar-link">Teachers</a></li>
+                    <li><a href="#alumni" class="navbar-link">Alumni</a></li>
+                    <li><a href="#about" class="navbar-link">About</a></li>
+                    <li><a href="#contact" class="navbar-link">Contact</a></li>
+                    <li><button class="theme-toggle" id="theme-toggle"><i class="fas fa-moon"></i></button></li>
+                    <li><button onclick="openLoginModal()" class="navbar-btn">Dashboard</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="home">
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <h1>Learn to Lead — Pakistan's Premier IT Academy</h1>
+                    <p>Transform your career with industry-leading courses. Gain expertise, win cash prizes, secure remote jobs, and earn free laptops.</p>
+                    <div class="hero-buttons">
+                        <a href="#courses" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Explore Courses</a>
+                        <a href="https://wa.me/923266978706" class="btn btn-secondary"><i class="fab fa-whatsapp"></i> Join Now</a>
+                    </div>
+                </div>
+                <div class="hero-video">
+                    <div class="video-placeholder">
+                        <i class="fas fa-play-circle"></i>
+                        <p>How We Use Lead to Learn</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Why Choose Learn to Lead?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <i class="fas fa-trophy"></i>
+                    <h3>💰 Cash Prizes</h3>
+                    <p>Top performers receive substantial cash rewards up to $500.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h3>💼 Remote Jobs</h3>
+                    <p>Exceptional students get exclusive remote job opportunities.</p>
+                </div>
+                <div class="benefit-card">
+                    <i class="fas fa-laptop"></i>
+                    <h3>🎁 Free Laptops</h3>
+                    <p>Complete all tasks on time and win a  new laptop.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="courses" id="courses">
+        <div class="container">
+            <h2 class="section-title">Our Premium Courses</h2>
+            <div class="courses-grid" id="courses-grid"></div>
+        </div>
+    </section>
+
+    <!-- Teachers Section -->
+    <section class="teachers" id="teachers">
+        <div class="container">
+            <h2 class="section-title">🎓 Meet Our Expert Teachers</h2>
+            <div class="teachers-grid" id="teachers-grid"></div>
+        </div>
+    </section>
+
+    <!-- Alumni Section -->
+    <section class="alumni" id="alumni">
+        <div class="container">
+            <h2 class="section-title">🏆 Our Successful Alumni</h2>
+            <div class="alumni-grid" id="alumni-grid"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-wrapper">
+                <div class="about-text">
+                    <h2>About Learn to Lead Institute</h2>
+                    <p>For over 2 years, Learn to Lead Institute has been at the forefront of IT education in Pakistan. We don't just teach coding and design — we build future leaders and innovators.</p>
+                    <p>Our mission is to provide accessible, industry-relevant education that directly translates into career success. With 190+ students trained and 7 comprehensive courses, we've established ourselves as Pakistan's most trusted IT academy.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>2+</h3>
+                            <p>Years Experience</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>190+</h3>
+                            <p>Students Trained</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>7</h3>
+                            <p>Expert Courses</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="lmltjkKq9Aod.jpg" alt="Learn to Lead Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-wrapper">
+                <form id="contact-form" class="contact-form">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Full Name</label>
+                        <input type="text" id="name" placeholder="Your Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="email" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-phone"></i> Phone Number</label>
+                        <input type="tel" id="phone" placeholder="Your Phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message"><i class="fas fa-message"></i> Message</label>
+                        <textarea id="message" placeholder="Tell us about your interest..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Send Message</button>
+                </form>
+                <div class="contact-info">
+                    <p><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> +92 326 697 8706</p>
+                    <p><i class="fas fa-calendar"></i> <strong>Classes Start:</strong> 29/06/2026</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> Pakistan (Online)</p>
+                    <p><i class="fas fa-clock"></i> <strong>Support:</strong> 24/7 Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p style="font-size: 1.2rem; margin-bottom: 1rem;">🚀 "The best way to predict the future is to create it."</p>
+            <p>&copy; 2026 Learn to Lead Institute. All Rights Reserved. | Empowering Pakistan's Tech Future</p>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="login-modal">
+        <div class="login-box">
+            <span class="close-login" onclick="closeLoginModal()">&times;</span>
+            <div class="login-header">
+                <h2>Student Portal</h2>
+                <p>Login with your credentials</p>
+            </div>
+            <form class="login-form" onsubmit="handleLogin(event)">
+                <input type="text" id="login-id" placeholder="Student ID" required>
+                <input type="password" id="login-pass" placeholder="Password" required>
+                <button type="submit">Login to Dashboard</button>
+            </form>
+            <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #666;">: ID: SKILLTIME | Pass: THAT TEAM PROVIDE YOU</p>
+        </div>
+    </div>
+
+    <!-- Floating WhatsApp -->
+    <a href="https://wa.me/923266978706" class="whatsapp-float" target="_blank" title="Chat with us">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            const icon = themeToggle.querySelector('i');
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            body.classList.remove('light-mode');
+            themeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+
+        // ===== DATA =====
+        const coursesData = [
+            { name: 'Introduction to AI', desc: 'Master the fundamentals of Artificial Intelligence.', img: 'hvNATFyGKbfm.jpg' },
+            { name: 'AI Tools Mastery', desc: 'Learn to leverage cutting-edge AI tools.', img: 'ai.png' },
+            { name: 'Prompt Engineering', desc: 'Become an expert at communicating with AI.', img: 'mG2tYcyYdVZ3.jpg' },
+            { name: 'Graphic Design', desc: 'Create stunning visuals and branding.', img: 'graph.png' },
+            { name: 'Front End Development', desc: 'Build modern, responsive web applications.', img: 'hvNATFyGKbfm.jpg' },
+            { name: 'Social Media Marketing', desc: 'Master digital marketing strategies.', img: 'gmYbvVZ40jY8.jpg' },
+            { name: 'Communication Ethics', desc: 'Develop professional communication skills.', img: 'RyxT8c6lNcSz.jpg' }
+        ];
+
+        const teachersData = [
+            { name: 'Sir UZAIR KHAN', role: 'DIGITAL CREATER', duration: 'NEW JOINING', img: 'teacher no four.png', type: 'Present' },
+            { name: 'Sir TAHIR AZAM', role: ' GRAPHICS AND UI DESIGNS', duration: '8 Months', img: 'TEACHER ONE.png', type: 'Present' },
+            { name: 'SIR ZAIN AHMAD', role: 'FULL STACK EXPERT', duration: '10 Months', img: 'TEACHER TWO.png', type: 'Present' },
+            { name: 'Sir MUHAMMAD MALIK', role: 'DIGITAL MARKETER', duration: '9 Months', img: 'TEACHER THREE.png', type: 'Past' },
+           
+        ];
+
+        const alumniData = [
+            { name: 'UZAIR KHAN', achievement: 'AI Course Topper - Cash Prize Winner 🏆', img: 'teacher no four.png', rank: 1 },
+            { name: 'TAHIR AZAM', achievement: 'Graphic Design Excellence - Remote Job 💼', img: 'TEACHER ONE.png', rank: 2 },
+            { name: 'Zain Ahmed', achievement: 'Web Development Expert - Free Laptop 💻', img: 'TEACHER TWO.png', rank: 3 },
+            { name: 'MUHAMMAD Malik', achievement: 'Marketing Specialist - Top Performer 🌟', img: 'TEACHER THREE.png', rank: 4 },
+           
+        ];
+
+        // ===== POPULATE DATA =====
+        function populateData() {
+            const coursesGrid = document.getElementById('courses-grid');
+            coursesData.forEach((course, index) => {
+                const card = document.createElement('div');
+                card.className = 'course-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.innerHTML = `
+                    <div class="course-img">
+                        <img src="${course.img}" alt="${course.name}">
+                        <span class="course-badge">📚 Online</span>
+                    </div>
+                    <div class="course-info">
+                        <h3>${course.name}</h3>
+                        <p>${course.desc}</p>
+                        <button onclick="openLoginModal()" class="btn btn-primary" style="display: inline-block; margin-top: 0.5rem;">Enroll Now</button>
+                    </div>
+                `;
+                coursesGrid.appendChild(card);
+            });
+
+            const teachersGrid = document.getElementById('teachers-grid');
+            teachersData.forEach((teacher, index) => {
+                const card = document.createElement('div');
+                card.className = 'teacher-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.innerHTML = `
+                    <div class="teacher-img">
+                        <img src="${teacher.img}" alt="${teacher.name}">
+                    </div>
+                    <div class="teacher-info">
+                        <h3>${teacher.name}</h3>
+                        <div class="teacher-role">${teacher.role}</div>
+                        <small>${teacher.duration} | ${teacher.type}</small>
+                    </div>
+                `;
+                teachersGrid.appendChild(card);
+            });
+
+            const alumniGrid = document.getElementById('alumni-grid');
+            alumniData.forEach((alumni, index) => {
+                const card = document.createElement('div');
+                card.className = 'alumni-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                card.innerHTML = `
+                    <div class="alumni-img">
+                        <img src="${alumni.img}" alt="${alumni.name}">
+                        <div class="alumni-rank">#${alumni.rank}</div>
+                    </div>
+                    <div class="alumni-info">
+                        <h3>${alumni.name}</h3>
+                        <small>${alumni.achievement}</small>
+                    </div>
+                `;
+                alumniGrid.appendChild(card);
+            });
+        }
+
+        // ===== LOGIN MODAL =====
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.add('active');
+        }
+
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.remove('active');
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const id = document.getElementById('login-id').value.toUpperCase();
+            const pass = document.getElementById('login-pass').value;
+
+            if (id === 'SKILLTIME' && pass === 'SUMMER2026') {
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('studentID', id);
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Invalid credentials! Demo: ID: SKILLTIME | Pass: THAT TEAM PROVIDE');
+            }
+        }
+
+        // ===== CONTACT FORM =====
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const message = document.getElementById('message').value;
+
+            const whatsappMsg = `Hello Learn to Lead! 👋\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage: ${message}`;
+            window.open(`https://wa.me/923266978706?text=${encodeURIComponent(whatsappMsg)}`, '_blank');
+
+            document.getElementById('contact-form').reset();
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+        });
+
+        // ===== ACTIVE NAV LINK =====
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.navbar-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // ===== CLOSE MODAL ON ESCAPE =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLoginModal();
+            }
+        });
+
+        // ===== INITIALIZE =====
+        populateData();
+    </script>
+</body>
+</html>
+*

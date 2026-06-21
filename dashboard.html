@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Management System | Learn to Lead</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --bg-light: #f5f7fa;
+            --bg-white: #ffffff;
+            --text-dark: #333;
+            --text-muted: #666;
+            --gradient-primary: linear-gradient(135deg, #667eea, #764ba2);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 30px rgba(102, 126, 234, 0.15);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: var(--shadow-md);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lms-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 0;
+            min-height: calc(100vh - 60px);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            background: white;
+            border-right: 1px solid #e0e0e0;
+            padding: 30px 20px;
+            overflow-y: auto;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-item {
+            margin-bottom: 10px;
+        }
+
+        .skill-btn {
+            width: 100%;
+            padding: 12px 15px;
+            background: #f5f7fa;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 500;
+            color: var(--text-dark);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .skill-btn:hover {
+            background: #e8ecf1;
+            border-color: var(--primary);
+        }
+
+        .skill-btn.active {
+            background: var(--gradient-primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .skill-btn i {
+            font-size: 1.1rem;
+        }
+
+        .main-content {
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .content-header {
+            margin-bottom: 40px;
+            animation: slideDown 0.6s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .content-header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        .skill-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .skill-section.active {
+            display: block;
+        }
+
+        .skill-overview {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-overview h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .skill-overview p {
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress-fill {
+            background: white;
+            height: 100%;
+            width: 0%;
+        }
+
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .lecture-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            animation: slideUp 0.6s ease;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .lecture-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .lecture-header {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            padding: 20px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .lecture-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .lecture-header h4 {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .lecture-duration {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .lecture-body {
+            padding: 20px;
+        }
+
+        .lecture-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .lecture-footer {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .lecture-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .lecture-btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .lecture-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .lecture-btn-secondary {
+            background: #f5f7fa;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .lecture-btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .video-modal.active {
+            display: flex;
+        }
+
+        .video-container {
+            width: 90%;
+            max-width: 900px;
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+
+        .video-player {
+            text-align: center;
+        }
+
+        .video-player i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .video-player h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .final-paper-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .final-paper-section h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .final-paper-section p {
+            opacity: 0.95;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .lms-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .content-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .lectures-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-logo">Learn to Lead LMS</div>
+            <div class="navbar-btns">
+                <button onclick="openFinalPaper()" class="btn btn-secondary">
+                    <i class="fas fa-file-alt"></i> Final Paper
+                </button>
+                <button onclick="logout()" class="btn btn-primary">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- LMS Container -->
+    <div class="lms-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">📚 Your Skills</div>
+            <ul class="skill-list">
+                <li class="skill-item">
+                    <button class="skill-btn active" onclick="switchSkill('ai', this)">
+                        <i class="fas fa-brain"></i> AI
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('aitools', this)">
+                        <i class="fas fa-tools"></i> AI Tools
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('prompt', this)">
+                        <i class="fas fa-wand-magic-sparkles"></i> Prompt
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('design', this)">
+                        <i class="fas fa-palette"></i> Design
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('frontend', this)">
+                        <i class="fas fa-code"></i> Front End
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('marketing', this)">
+                        <i class="fas fa-share-alt"></i> Marketing
+                    </button>
+                </li>
+                <li class="skill-item">
+                    <button class="skill-btn" onclick="switchSkill('communication', this)">
+                        <i class="fas fa-comments"></i> Communication
+                    </button>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- AI Section -->
+            <div id="ai" class="skill-section active">
+                <div class="content-header">
+                    <h2>🧠 Introduction to AI</h2>
+                    <p>Master the fundamentals of Artificial Intelligence and machine learning</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Learn the basics of AI, machine learning algorithms, and real-world applications.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="ai-lectures"></div>
+            </div>
+
+            <!-- AI Tools Section -->
+            <div id="aitools" class="skill-section">
+                <div class="content-header">
+                    <h2>🛠️ AI Tools Mastery</h2>
+                    <p>Learn to leverage cutting-edge AI tools for productivity</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Discover and master the latest AI tools used by professionals.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="aitools-lectures"></div>
+            </div>
+
+            <!-- Prompt Engineering Section -->
+            <div id="prompt" class="skill-section">
+                <div class="content-header">
+                    <h2>✨ Prompt Engineering</h2>
+                    <p>Become an expert at communicating with AI models</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Master the art of crafting effective prompts to get the best results from AI models.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="prompt-lectures"></div>
+            </div>
+
+            <!-- Graphic Design Section -->
+            <div id="design" class="skill-section">
+                <div class="content-header">
+                    <h2>🎨 Graphic Design Pro</h2>
+                    <p>Create stunning visuals and professional branding</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Learn design principles, color theory, and professional design tools.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="design-lectures"></div>
+            </div>
+
+            <!-- Front End Development Section -->
+            <div id="frontend" class="skill-section">
+                <div class="content-header">
+                    <h2>💻 Front End Development</h2>
+                    <p>Build modern, responsive, and interactive web applications</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Master HTML, CSS, JavaScript, and modern frameworks.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="frontend-lectures"></div>
+            </div>
+
+            <!-- Social Media Marketing Section -->
+            <div id="marketing" class="skill-section">
+                <div class="content-header">
+                    <h2>📱 Social Media Marketing</h2>
+                    <p>Master digital marketing strategies and grow brands</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Learn social media strategies, content creation, and analytics.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="marketing-lectures"></div>
+            </div>
+
+            <!-- Communication Section -->
+            <div id="communication" class="skill-section">
+                <div class="content-header">
+                    <h2>💬 Communication Ethics</h2>
+                    <p>Develop professional communication and leadership skills</p>
+                </div>
+                <div class="skill-overview">
+                    <h3>Course Overview</h3>
+                    <p>Master professional communication, presentation skills, and ethical leadership.</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%;"></div>
+                    </div>
+                    <small>0% Complete</small>
+                </div>
+                <div class="lectures-grid" id="communication-lectures"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="video-modal">
+        <div class="video-container">
+            <span class="close-modal" onclick="closeVideo()">&times;</span>
+            <div class="video-player">
+                <i class="fas fa-video"></i>
+                <h2 id="video-title"></h2>
+                <p>Video lecture will be added here</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check login
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('studentID');
+            window.location.href = 'index.html';
+        }
+
+        // Skill data
+        const skillsData = {
+            ai: [
+                { num: 1, title: 'What is AI?', desc: 'Introduction to Artificial Intelligence', duration: '45 min' },
+                { num: 2, title: 'IMPORTANCE& ROLE OF AI', desc: 'Understanding supervised and unsupervised learning', duration: '60 min' },
+                { num: 3, title: 'HISTORY OF AI', desc: 'Deep dive into neural networks', duration: '75 min' },
+                { num: 4, title: 'WORK OF AI IM OUR REMOTE JOB', desc: 'Practical applications of AI', duration: '50 min' }
+            ],
+            aitools: [
+                { num: 1, title: 'CLOUDE Mastery', desc: 'Learn to use ChatGPT effectively', duration: '40 min' },
+                { num: 2, title: 'LEARNING & CREATING Tools', desc: 'Explore automation tools and workflows', duration: '55 min' },
+                { num: 3, title: 'AI for Content & DEVELOPMENT', desc: 'Use AI tools for content creation', duration: '50 min' },
+                { num: 4, title: 'Advanced AI Tools', desc: 'Explore advanced AI platforms', duration: '65 min' }
+            ],
+            prompt: [
+                { num: 1, title: 'Prompt Basics', desc: 'Fundamentals of effective prompt writing', duration: '35 min' },
+                { num: 2, title: 'Advanced Techniques', desc: 'Advanced prompt engineering techniques', duration: '60 min' },
+                { num: 3, title: 'Context & Clarity', desc: 'Creating clear and contextual prompts', duration: '45 min' },
+                { num: 4, title: 'Optimization', desc: 'Optimizing prompts for best results', duration: '50 min' }
+            ],
+            design: [
+                { num: 1, title: 'Design Principles', desc: 'Learn fundamental design principles', duration: '50 min' },
+                { num: 2, title: 'Color Theory', desc: 'Master color theory and psychology', duration: '55 min' },
+                { num: 3, title: 'CANVA BASICS', desc: 'Professional typography and fonts', duration: '45 min' },
+                { num: 4, title: 'Design WITH AI', desc: 'Master Figma, Photoshop, and tools', duration: '70 min' }
+            ],
+            frontend: [
+                { num: 1, title: 'WHAT IS WEB DEVELOPMENT', desc: 'Learn THE INTRODUCTIN OF WEB', duration: '50 min' },
+                { num: 2, title: 'FRONT-END DEVELOPMENT BASICS', desc: 'LEARN BASIC OR FRONTEND', duration: '65 min' },
+                { num: 3, title: 'COMPLE FRONT-END DEVELOPMENT', desc: 'LEARN ADVAVE LALEL FORNTEND', duration: '75 min' },
+                { num: 4, title: 'FREE PUBLISHING WEBSITE', desc: 'WHAT IS DOMAIN AND HOSTING', duration: '70 min' }
+            ],
+            marketing: [
+                { num: 1, title: 'Social Media Strategy', desc: 'Develop effective social media strategies', duration: '45 min' },
+                { num: 2, title: 'Content Creation', desc: 'Create engaging content', duration: '55 min' },
+                { num: 3, title: 'Analytics & Metrics', desc: 'Understand analytics and measure success', duration: '50 min' },
+                { num: 4, title: 'Influencer Marketing', desc: 'Leverage influencers for growth', duration: '60 min' }
+            ],
+            communication: [
+                { num: 1, title: 'Professional Communication', desc: 'Master professional communication', duration: '45 min' },
+                { num: 2, title: 'Presentation Skills', desc: 'Deliver powerful presentations', duration: '60 min' },
+                { num: 3, title: 'Leadership Ethics', desc: 'Ethical leadership and decision making', duration: '55 min' },
+                { num: 4, title: 'SELF IMPROVING THINGS', desc: 'Handle YOURSELF professionally', duration: '50 min' }
+            ]
+        };
+
+        // Populate lectures
+        function populateLectures() {
+            Object.keys(skillsData).forEach(skill => {
+                const container = document.getElementById(`${skill}-lectures`);
+                skillsData[skill].forEach((lecture, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'lecture-card';
+                    card.style.animationDelay = `${index * 0.1}s`;
+                    card.innerHTML = `
+                        <div class="lecture-header">
+                            <div class="lecture-number">${lecture.num}</div>
+                            <h4>${lecture.title}</h4>
+                            <div class="lecture-duration"><i class="fas fa-clock"></i> ${lecture.duration}</div>
+                        </div>
+                        <div class="lecture-body">
+                            <p>${lecture.desc}</p>
+                        </div>
+                        <div class="lecture-footer">
+                            <button class="lecture-btn lecture-btn-primary" onclick="openVideo('${lecture.title}')">
+                                <i class="fas fa-play"></i> Watch
+                            </button>
+                            <button class="lecture-btn lecture-btn-secondary">
+                                <i class="fas fa-download"></i> Download
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+        }
+
+        // Switch skill
+        function switchSkill(skillId, button) {
+            document.querySelectorAll('.skill-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            document.getElementById(skillId).classList.add('active');
+
+            document.querySelectorAll('.skill-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            button.classList.add('active');
+        }
+
+        // Video functions
+        function openVideo(title) {
+            document.getElementById('video-title').innerText = title;
+            document.getElementById('video-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideo() {
+            document.getElementById('video-modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Final Paper
+        function openFinalPaper() {
+            alert('Final Paper Portal\n\nID: FINALPAPER\nPassword: SUMMER2026\n\nAbi paper ka time nahi na. Jab paper ho ga team apko inform kara gi.');
+        }
+
+        // Close modal on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeVideo();
+            }
+        });
+
+        // Initialize
+        populateLectures();
+    </script>
+</body>
+</html>
